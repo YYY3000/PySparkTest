@@ -56,19 +56,39 @@ class Solution:
         :type s: str
         :rtype: int
         """
+        if len(s) == 0:
+            return 0
+        last_dict = {}
+        start = 0
+        max_length = 0
+        for index in range(len(s)):
+            c = s[index]
+            length = index - start + 1
+            if c in last_dict:
+                i = last_dict[c]
+                if i >= start:
+                    start = i + 1
+                    length = length - 1
+            max_length = max(max_length, length)
+            last_dict[c] = index
+        return max_length
 
 
-two_sum = Solution.two_sum([2, 3, 7, 9], 9)
-print(two_sum)
+# two_sum = Solution.two_sum([2, 3, 7, 9], 9)
+# print(two_sum)
+#
+# l1 = ListNode(2)
+# l1.next = ListNode(4)
+# l1.next.next = ListNode(3)
+#
+# l2 = ListNode(5)
+# l2.next = ListNode(6)
+# l2.next.next = ListNode(4)
+# add_two_num = Solution.add_two_numbers(l1, l2)
+# while add_two_num is not None:
+#     print(add_two_num.val)
+#     add_two_num = add_two_num.next
 
-l1 = ListNode(2)
-l1.next = ListNode(4)
-l1.next.next = ListNode(3)
-
-l2 = ListNode(5)
-l2.next = ListNode(6)
-l2.next.next = ListNode(4)
-add_two_num = Solution.add_two_numbers(l1, l2)
-while add_two_num is not None:
-    print(add_two_num.val)
-    add_two_num = add_two_num.next
+s = "abcabcdd"
+length = Solution.length_of_longest_substring(s)
+print(length)
