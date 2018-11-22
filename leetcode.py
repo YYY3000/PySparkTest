@@ -73,22 +73,51 @@ class Solution:
             last_dict[c] = index
         return max_length
 
+    @staticmethod
+    def find_median_sorted_arrays(nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
+        """
+        m = len(nums1)
+        n = len(nums2)
+        if m > n:
+            m,n,nums1,nums2 = n,m,nums2,nums1
+        if n == 0:
+            return None
+        for i in range(m + 1):
+            j = (m + n + 1)//2 - i
+            left2 = None
+            left1 = None
+            right2 = None
+            right1 = None
+            if i - 1 >= 0:
+                left1 = nums1[i - 1]
+                left2 = left1
+            if i < m:
+                right1 = nums1[i]
+                right2 = right1
+            if j - 1 >= 0:
+                left2 = nums2[j - 1]
+                if left1 is None: left1 = left2
+            if j < n:
+                right2 = nums2[j]
+                if right1 is None: right1 = right2
+            if right1 is None and right2 is None: 
+                right1 = left1
+                right2 = left2
+            if left2 <= right1 and left1 <= right2:
+                if (m + n) % 2 == 1: return max(left1, left2)
+                else: return (max(left1, left2) + min(right1, right2))/2
 
-# two_sum = Solution.two_sum([2, 3, 7, 9], 9)
-# print(two_sum)
-#
-# l1 = ListNode(2)
-# l1.next = ListNode(4)
-# l1.next.next = ListNode(3)
-#
-# l2 = ListNode(5)
-# l2.next = ListNode(6)
-# l2.next.next = ListNode(4)
-# add_two_num = Solution.add_two_numbers(l1, l2)
-# while add_two_num is not None:
-#     print(add_two_num.val)
-#     add_two_num = add_two_num.next
+    @staticmethod
+    def longestPalindrome(s):
+        for i in range(len(s)):
+            c = s[i]
+            m,n = i
+            
+        return 0
 
-s = "abcabcdd"
-length = Solution.length_of_longest_substring(s)
-print(length)
+s = [1, 2, 5]
+print(Solution.longestPalindrome(s))
